@@ -1,7 +1,7 @@
 "use client";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { userValdiation } from "@/lib/validations/user";
+import { userValidation } from "@/lib/validations/user";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -41,7 +41,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
   const pathname = usePathname();
 
   const form = useForm({
-    resolver: zodResolver(userValdiation),
+    resolver: zodResolver(userValidation),
     defaultValues: {
       profile_photo: user?.image || "",
       name: user?.name || "",
@@ -50,7 +50,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
     },
   });
 
-  const onSubmit = async (values: z.infer<typeof userValdiation>) => {
+  const onSubmit = async (values: z.infer<typeof userValidation>) => {
     try {
       const blob = values.profile_photo;
       const hasImageChanged = isBase64Image(blob);
@@ -203,6 +203,7 @@ const AccountProfile = ({ user, btnTitle }: Props) => {
                     {...field}
                   />
                 </FormControl>
+                <FormMessage />
               </FormItem>
             )}
           />
