@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import Thread from "../models/thread.models";
+import Thread from "../models/thread.model";
 import User from "../models/user.model";
 import { connectToDB } from "../validations/mongoose";
 
@@ -46,7 +46,7 @@ export async function fetchPosts(pageNumber = 1, pageSize = 20) {
 
   //Fetch the post that have no parent
   const postsQuery = Thread.find({ parentId: { $in: [null, undefined] } })
-    .sort({ createAt: "desc" })
+    .sort({ createdAt: "desc" })
     .skip(skipamount)
     .limit(pageSize)
     .populate({ path: "author", model: User })
