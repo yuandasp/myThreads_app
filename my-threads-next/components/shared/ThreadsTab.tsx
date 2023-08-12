@@ -11,7 +11,7 @@ interface Props {
 async function ThreadsTab({ currentUserId, accoundId, accountType }: Props) {
   let result = await fetchUserPosts(accoundId);
 
-  console.log(result);
+  // console.log({ result });
 
   if (!result) redirect("/");
 
@@ -34,7 +34,6 @@ async function ThreadsTab({ currentUserId, accoundId, accountType }: Props) {
                   id: thread.author.id,
                 }
           }
-          community={thread.communities}
           createdAt={thread.createdAt}
           comments={thread.children}
         />

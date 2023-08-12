@@ -8,22 +8,15 @@ import { connectToDB } from "../validations/mongoose";
 interface Params {
   text: string;
   author: string;
-  communityId: string | null;
   path: string;
 }
 
-export async function createThread({
-  text,
-  author,
-  communityId,
-  path,
-}: Params) {
+export async function createThread({ text, author, path }: Params) {
   try {
     connectToDB();
     const createdthread = await Thread.create({
       text,
       author,
-      community: communityId || null,
     });
 
     //Update user model
@@ -75,7 +68,6 @@ export async function fetchThreadById(id: string) {
   connectToDB();
 
   try {
-    //todo populate community
     const thread = await Thread.findById(id)
       .populate({
         path: "author",
